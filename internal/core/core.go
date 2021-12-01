@@ -34,6 +34,7 @@ type Core struct {
 	rtspsServer *rtspServer
 	rtmpServer  *rtmpServer
 	hlsServer   *hlsServer
+	hikkaServer *hikkaServer
 	api         *api
 	confWatcher *confwatcher.ConfWatcher
 
@@ -331,6 +332,19 @@ func (p *Core) createResources(initial bool) error {
 
 	if !p.conf.HLSDisable {
 		if p.hlsServer == nil {
+
+			p.hikkaServer, err = newHikkaServer(
+				p.ctx,
+				":9999",
+				p.conf.HLSAlwaysRemux,
+				p.conf.HLSSegmentCount,
+				p.conf.HLSSegmentDuration,
+				p.conf.HLSAllowOrigin,
+				p.conf.ReadBufferCount,
+				p.pathManager,
+				p.metrics,
+				p)
+
 			p.hlsServer, err = newHLSServer(
 				p.ctx,
 				p.conf.HLSAddress,

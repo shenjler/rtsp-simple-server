@@ -19,12 +19,12 @@ writeTimeout: 10s
 readBufferCount: 512
 
 # enable the HTTP API.
-api: no
+api: yes
 # address of the API listener.
 apiAddress: 127.0.0.1:9997
 
 # enable Prometheus-compatible metrics.
-metrics: no
+metrics: yes
 # address of the metrics listener.
 metricsAddress: 127.0.0.1:9998
 
@@ -123,6 +123,10 @@ hlsAllowOrigin: '*'
 # the settings under the path "all" are applied to all paths that do not match
 # another entry.
 paths:
+  aDoor:
+      source: "rtsp://admin:Pccwc@m5@192.168.22.248:554/h264/ch1/sub/av_stream"
+  bDoor:
+      source: "rtsp://admin:Pccwc@m5@192.168.22.249:554/h264/ch1/sub/av_stream"
   all:
     # source of the stream - this can be:
     # * publisher -> the stream is published by a RTSP or RTMP client
